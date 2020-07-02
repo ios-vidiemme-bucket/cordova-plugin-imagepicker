@@ -33,7 +33,10 @@
         NSString *mediaType = (NSString *)options[@"mediaType"];
 
         // Create the an album controller and image picker
-        QBImagePickerController *imagePicker = [[QBImagePickerController alloc] init];
+	__block QBImagePickerController *imagePicker;
+	dispatch_sync(dispatch_get_main_queue(), ^{
+		imagePicker = [[QBImagePickerController alloc] init];
+	});
         imagePicker.allowsMultipleSelection = (maxImages >= 2);
         imagePicker.showsNumberOfSelectedAssets = YES;
         imagePicker.maximumNumberOfSelection = maxImages;
